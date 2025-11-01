@@ -16,9 +16,8 @@ import {
 anchor.setProvider(anchor.AnchorProvider.env());
 const program = anchor.workspace.T3aEscrow as unknown as Program<T3aEscrow>;
 
-// Configure mints
 const MINT_A = new PublicKey("44rwMB76AsTSYtW8NRdvLFFT3ffLgVcHRYaSjfG1TpZb");
-const MINT_B = MINT_A; // adjust if using a different token to pay
+const MINT_B = MINT_A; 
 
 async function main() {
   const provider = anchor.getProvider();
@@ -31,13 +30,12 @@ async function main() {
   const taker = provider.wallet.publicKey;
   const maker = process.env.MAKER
     ? new PublicKey(process.env.MAKER)
-    : provider.wallet.publicKey; // default to same wallet if MAKER not provided
+    : provider.wallet.publicKey;
 
   const seedStr = process.env.SEED;
   if (!seedStr) throw new Error("Missing SEED env var for take-offer");
   const seed = new anchor.BN(seedStr);
 
-  // Detect token program (SPL Token vs Token-2022) from mint(s)
   const mintAAcc = await provider.connection.getAccountInfo(MINT_A);
   if (!mintAAcc) throw new Error("Mint A not found: " + MINT_A.toBase58());
   const tokenProgramIdA = mintAAcc.owner.equals(TOKEN_2022_PROGRAM_ID)
@@ -55,7 +53,6 @@ async function main() {
   }
   const tokenProgramId = tokenProgramIdA;
 
-  // PDA for the escrow account
   const [escrowPda] = PublicKey.findProgramAddressSync(
     [Buffer.from("escrow"), maker.toBuffer(), Buffer.from(seed.toArray("le", 8))],
     program.programId
@@ -90,7 +87,6 @@ async function main() {
     ASSOCIATED_TOKEN_PROGRAM_ID
   );
 
-  // Ensure taker ATA for mint B exists
   const takerAtaBInfo = await provider.connection.getAccountInfo(takerAtaB);
   if (!takerAtaBInfo) {
     const ix = createAssociatedTokenAccountInstruction(

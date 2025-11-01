@@ -28,14 +28,12 @@ async function main() {
   }
   const maker = provider.wallet.publicKey;
 
-  // Detect token program (SPL Token vs Token-2022) from mint
   const mintAcc = await provider.connection.getAccountInfo(MINT_A);
   if (!mintAcc) throw new Error("Mint account not found: " + MINT_A.toBase58());
   const tokenProgramId = mintAcc.owner.equals(TOKEN_2022_PROGRAM_ID)
     ? TOKEN_2022_PROGRAM_ID
     : TOKEN_PROGRAM_ID;
 
-  // PDA for the escrow account
   const [escrowPda] = PublicKey.findProgramAddressSync(
     [
       Buffer.from("escrow"),
@@ -60,13 +58,12 @@ async function main() {
     ASSOCIATED_TOKEN_PROGRAM_ID
   );
 
-  // Ensure maker ATA exists
   const info = await provider.connection.getAccountInfo(makerAta);
   if (!info) {
     const ix = createAssociatedTokenAccountInstruction(
-      maker, // payer
+      maker, 
       makerAta,
-      maker, // owner
+      maker, 
       MINT_A,
       tokenProgramId,
       ASSOCIATED_TOKEN_PROGRAM_ID

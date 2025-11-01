@@ -31,7 +31,6 @@ async function main() {
   if (!seedStr) throw new Error("Missing SEED env var for refund-offer");
   const seed = new anchor.BN(seedStr);
 
-  // Detect token program for mint A
   const mintAcc = await provider.connection.getAccountInfo(MINT_A);
   if (!mintAcc) throw new Error("Mint account not found: " + MINT_A.toBase58());
   const tokenProgramId = mintAcc.owner.equals(TOKEN_2022_PROGRAM_ID)
@@ -58,7 +57,6 @@ async function main() {
     ASSOCIATED_TOKEN_PROGRAM_ID
   );
 
-  // Ensure maker ATA A exists
   const makerAtaInfo = await provider.connection.getAccountInfo(makerAtaA);
   if (!makerAtaInfo) {
     const ix = createAssociatedTokenAccountInstruction(
