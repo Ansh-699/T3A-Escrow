@@ -1,3 +1,20 @@
+![Architecture Diagram](assets/arch-diagram.png)
+
+## User Story
+As a cautious trader,
+Alice wants to safely exchange her tokens without having to trust a stranger directly.
+
+She creates an escrow offer locking 100 T3A into a secure smart contract.
+The offer states that she will release her 100 T3A only if another user sends her 50 T3A in return.
+
+Bob discovers Alice’s offer and decides to accept it. When he deposits 50 T3A,
+the escrow automatically executes the trade — Bob receives 100 T3A,
+and Alice receives 50 T3A — all atomically and trustlessly.
+
+If no one accepts Alice’s offer within the set timeframe,
+she can safely cancel the offer, and her 100 T3A are returned to her wallet.
+---
+
 # T3A Escrow – Conditional Token Swap (Devnet)
 
 **Token A & B**: `Turbin3-Ansh (T3A)`  
