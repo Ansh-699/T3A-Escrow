@@ -1,3 +1,6 @@
+
+
+# T3A Escrow – Conditional Token Swap (Devnet)
 ![Architecture Diagram](assets/arch-diagram.png)
 
 ## User Story
@@ -13,9 +16,10 @@ and Alice receives 50 T3A — all atomically and trustlessly.
 
 If no one accepts Alice’s offer within the set timeframe,
 she can safely cancel the offer, and her 100 T3A are returned to her wallet.
+
+
 ---
 
-# T3A Escrow – Conditional Token Swap (Devnet)
 
 **Token A & B**: `Turbin3-Ansh (T3A)`  
 **Mint**: [`44rwMB76AsTSYtW8NRdvLFFT3ffLgVcHRYaSjfG1TpZb`](https://explorer.solana.com/address/44rwMB76AsTSYtW8NRdvLFFT3ffLgVcHRYaSjfG1TpZb?cluster=devnet)  
